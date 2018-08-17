@@ -1,6 +1,4 @@
-data Nat = Zero
-         | D Nat
-         | O Nat deriving Show
+data Nat = Zero | D Nat | O Nat deriving Show
          
 -- toNat. Obtiene la representaci ́on en n ́umeros Nat de un n ́umero entero.
 toNat :: Int -> Nat
@@ -12,5 +10,8 @@ toNat a = if a `mod` 2 == 0
 -- succ. Obtiene el sucesor de un n ́umero Nat.
 succN :: Nat -> Nat
 succN Zero = O Zero
-succN (D x) = x
-succN (O x) = x
+succN (O Zero) = (D (O Zero))
+succN (O (O x)) = (D (succN (O x)))
+succN (O (D x)) = (D (O x))
+succN (D (O x)) = (O (O x))
+succN (D (D x)) = (O (D x))
