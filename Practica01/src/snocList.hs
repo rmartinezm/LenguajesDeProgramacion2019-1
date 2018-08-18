@@ -22,15 +22,17 @@ lastS :: ListS a -> a
 lastS NilS = error "Empty list"
 lastS (Snoc _ a) = a
 
--- 5. nthElementS. Obtiene el n- esimo elemento de la lista. TODO:
+-- 5. nthElementS. Obtiene el n-esimo elemento de la lista.
 nthElementS :: Int -> ListS a -> a
 nthElementS _ NilS = error "Invalid index"
-nthElementS 0 (Snoc _ a) = a
-nthElementS n (Snoc x _) = if n < 0 
-                           then error "Invalid index"
-                           else nthElementS (n-1) x
+nthElementS 0 (Snoc NilS a) = a
+nthElementS 0 (Snoc l a) = headS l
+nthElementS n x = if n < 0
+                  then error "Invalid index"
+                  else nthElementS (n-1) (tailS x)  
 
--- 6. deleteNthElementS. Elimina el n- ́esimo elemento de la lista. TODO:
+
+-- 6. deleteNthElementS. Elimina el n-esimo elemento de la lista. TODO:
 deleteNthElementS :: Int -> ListS a -> ListS a
 deleteNthElementS _ x = error "Not implemented"
 
@@ -43,7 +45,7 @@ addFirstS a (Snoc x b) = Snoc (addFirstS a x) b
 addLastS :: a -> ListS a -> ListS a
 addLastS a x = Snoc x a
 
--- 9. reverseS. Obtiene la reversa de la lista. TODO:
+-- 9. reverseS. Obtiene la reversa de la lista.
 reverseS :: ListS a -> ListS a
 reverseS NilS = NilS
 reverseS (Snoc NilS a) = (Snoc NilS a)
