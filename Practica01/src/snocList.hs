@@ -1,3 +1,5 @@
+-- @author: Roberto Martinez Medina.
+
 data ListS a = NilS | Snoc ( ListS a ) a deriving Show
 
 -- 1. headS. Obtiene el primer elemento de la lista.
@@ -31,10 +33,15 @@ nthElementS n x = if n < 0
                   then error "Invalid index"
                   else nthElementS (n-1) (tailS x)  
 
-
--- 6. deleteNthElementS. Elimina el n-esimo elemento de la lista. TODO:
+-- 6. deleteNthElementS. Elimina el n-esimo elemento de la lista.
 deleteNthElementS :: Int -> ListS a -> ListS a
-deleteNthElementS _ x = error "Not implemented"
+deleteNthElementS _ NilS = NilS
+deleteNthElementS 0 (Snoc NilS a) = NilS
+deleteNthElementS _ (Snoc NilS a) = error "Invalid index"
+deleteNthElementS 0 l = tailS l
+deleteNthElementS n (Snoc l a) = if n < 0 
+                        then error "Invalid index"
+                        else addFirstS (headS l) (deleteNthElementS (n-1) (tailS (Snoc l a)))
 
 -- 7. addFirstS. Obtiene la lista donde el primer elemento es el elemento dado.
 addFirstS :: a -> ListS a -> ListS a
