@@ -45,7 +45,9 @@ addLastS a x = Snoc x a
 
 -- 9. reverseS. Obtiene la reversa de la lista. TODO:
 reverseS :: ListS a -> ListS a
-reverseS _ = error "Not implemented"
+reverseS NilS = NilS
+reverseS (Snoc NilS a) = (Snoc NilS a)
+reverseS (Snoc x a) = addFirstS a (reverseS x)
 
 -- 10. appendS. Obtiene la concatenacion de dos listas.
 appendS :: ListS a -> ListS a -> ListS a
